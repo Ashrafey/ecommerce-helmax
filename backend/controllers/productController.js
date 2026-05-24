@@ -63,6 +63,9 @@ const listProducts = async (req, res) => {
         // const products = await productModel.find({});
         const products = await productModel.find({}).sort({ date: -1 });
 
+        // Cache at Vercel's CDN for 60s; serve stale up to 5min while revalidating.
+        // This means repeat visitors get an instant response instead of hitting MongoDB.
+        res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=300')
         res.json({ success: true, products })
 
 
