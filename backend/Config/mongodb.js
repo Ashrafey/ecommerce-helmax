@@ -11,7 +11,6 @@ const connectDB = async () => {
     if (!cached.promise) {
         mongoose.connection.on('connected', () => console.log("DB CONNECTED"))
         cached.promise = mongoose.connect(`${process.env.MONGODB_URI}/ecommerce`, {
-            bufferCommands: false,
             maxPoolSize: 10,
         })
     }
